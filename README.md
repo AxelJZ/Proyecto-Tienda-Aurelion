@@ -1,7 +1,7 @@
 # PROYECTO-TIENDA-AURELION
 
 ## 1. Descripción
-Este repositorio contiene el proyecto reorganizado del análisis de datos "Tienda Aurelion".
+Este repositorio contiene el proyecto organizado del análisis de datos "Tienda Aurelion".
 
 ## 2. Objetivos del Proyecto
 Los objetivos principales de este trabajo son los siguientes:
@@ -55,7 +55,7 @@ PROYECTO-TIENDA-AURELION/
 Abrir PowerShell en la carpeta del proyecto (`PROYECTO-TIENDA-AURELION`) y ejecutar:
 
 ```powershell
-cd 'c:\Users\Jonat\Downloads\PROYECTO-TIENDA-AURELION'
+cd 'c:\(ruta)\PROYECTO-TIENDA-AURELION'
 python .\src\Programa.py
 ```
 
