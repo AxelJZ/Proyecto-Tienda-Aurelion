@@ -71,3 +71,80 @@ pip install pandas numpy matplotlib seaborn scipy openpyxl jupyter ipython
 ```
 
 Para garantizar la reproducibilidad, se recomienda instalar las dependencias antes de ejecutar el código.
+
+## 8. Modelo Predictivo (Machine Learning)
+
+Para complementar el análisis exploratorio realizado previamente, se desarrolló un modelo predictivo cuyo objetivo fue estimar el importe total de una venta a partir de variables del producto, cliente y transacción.
+
+### 8.1. Objetivo del modelo
+
+Predecir el valor de importe utilizando características numéricas y categóricas disponibles en el dataset unificado.
+
+### 8.2. Variables utilizadas
+
+- Variable objetivo (y):
+
+    - importe — monto total de cada venta.
+
+- Variables predictoras (X):
+
+    - cantidad
+
+    - precio_unitario
+
+    - precio_unitario_producto
+
+    - categoria_corregida
+
+    - medio_pago
+
+    - ciudad
+
+    - nombre_producto
+
+Tras filtrar registros sin importe válido, el dataset final quedó con 338 filas.
+
+### 8.3. Preprocesamiento
+
+- Eliminación de filas con importe nulo.
+
+- Separación entre columnas numéricas y categóricas.
+
+- Codificación de variables categóricas mediante OneHotEncoder (handle_unknown='ignore').
+
+- Ensamble del procesamiento en un ColumnTransformer.
+
+- División Train/Test (80% / 20%) con random_state=42.
+
+### 8.4. Modelo seleccionado
+
+Se utilizó RandomForestRegressor, dada su robustez para datos tabulares:
+
+```python
+RandomForestRegressor(
+    n_estimators=300,
+    max_depth=None,
+    min_samples_split=2,
+    random_state=42
+)
+```
+
+### 8.5. Resultados y métricas
+
+El modelo logró un rendimiento satisfactorio en el conjunto de prueba:
+
+| Métrica  | Resultado   |
+| -------- | ----------- |
+| **MAE**  | ~380 pesos  |
+| **RMSE** | ~1129 pesos |
+| **R²**   | ~0.84       |
+
+Esto indica que el modelo explica aproximadamente el 84% de la variabilidad del importe.
+
+### 8.6. Conclusiones del modelo
+
+- cantidad y precio_unitario son las variables con mayor impacto en la predicción.
+
+- Las variables categóricas (categoria_corregida, medio_pago, ciudad) aportan información adicional útil.
+
+- El modelo es adecuado como aproximación inicial y cumple plenamente los requisitos del proyecto académico.
