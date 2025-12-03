@@ -143,8 +143,33 @@ Esto indica que el modelo explica aproximadamente el 84% de la variabilidad del 
 
 ### 8.6. Conclusiones del modelo
 
-- cantidad y precio_unitario son las variables con mayor impacto en la predicción.
+- **cantidad** y **precio_unitario** son las variables con mayor impacto en la predicción.
 
-- Las variables categóricas (categoria_corregida, medio_pago, ciudad) aportan información adicional útil.
+- Las variables categóricas (**categoria_corregida**, **medio_pago**, **ciudad**) aportan información adicional útil.
 
 - El modelo es adecuado como aproximación inicial y cumple plenamente los requisitos del proyecto académico.
+
+### 8.7. Diagrama visual del flujo del modelo
+
+```mermaid
+flowchart TD
+
+A[1. Definición del Objetivo del Modelo]
+B[2. Carga y Selección del Dataset<br/>Definir X e y]
+C[3. Preprocesamiento<br/>- Filtrado importe>0<br/>- División num/cat<br/>- OneHot Encoding]
+D[4. División Train/Test]
+E[5. Entrenamiento<br/>Random Forest Regressor]
+F[6. Predicción<br/>y_pred = modelo.predict]
+G[7. Evaluación<br/>MAE - RMSE - R2]
+H[8. Conclusiones Finales]
+
+A --> B --> C --> D --> E --> F --> G --> H
+```
+
+### 8.8. Conclusiones Generales del Proyecto
+
+El análisis completo de Tienda Aurelion permitió integrar múltiples fuentes de datos, corregir inconsistencias y construir una tabla unificada confiable para el estudio. A través del proceso de limpieza, EDA y modelización, se identificaron patrones relevantes en el comportamiento de los clientes, la composición de las ventas y la influencia de características específicas de los productos.
+
+En la etapa de Machine Learning se desarrolló un modelo predictivo simple, orientado a estimar el importe final de una venta a partir de variables numéricas y categóricas. Tras aplicar preprocesamiento mediante codificación One-Hot y dividir los datos en entrenamiento y prueba, se entrenó un modelo Random Forest Regressor, el cual presentó un desempeño sólido para un enfoque introductorio, alcanzando valores satisfactorios de MAE, RMSE y R².
+
+El flujo seguido aseguró transparencia y reproducibilidad: objetivo definido, dataset explicado, preprocesamiento claro, métricas explícitas y conclusiones sustentadas. En conjunto, este proyecto demuestra un pipeline analítico completo, coherente con los lineamientos del curso e ilustrativo del proceso real de trabajo en ciencia de datos.
