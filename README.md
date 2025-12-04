@@ -150,9 +150,9 @@ El modelo logró un rendimiento satisfactorio en el conjunto de prueba:
 
 | Métrica  | Resultado   |
 | -------- | ----------- |
-| **MAE**  | ~380 pesos  |
-| **RMSE** | ~1129 pesos |
-| **R²**   | ~0.84       |
+| **MAE**  | ≈ 190 pesos |
+| **RMSE** | ≈ 356 pesos |
+| **R²**   | ≈ 0.993     |
 
 Esto indica que el modelo explica aproximadamente el 84% de la variabilidad del importe.
 
