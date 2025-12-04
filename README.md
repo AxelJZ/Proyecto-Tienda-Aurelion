@@ -1,7 +1,7 @@
 # PROYECTO-TIENDA-AURELION
 
 ## 1. Descripción
-Este repositorio contiene el proyecto organizado del análisis de datos "Tienda Aurelion".
+Este repositorio contiene el proyecto organizado del análisis de datos "Tienda Aurelion": limpieza y unificación de datos, análisis exploratorio, análisis estadístico y un modelo predictivo básico.
 
 ## 2. Objetivos del Proyecto
 Los objetivos principales de este trabajo son los siguientes:
@@ -22,13 +22,28 @@ Los datos empleados en este proyecto corresponden a archivos de tipo Excel y CSV
 - **tabla_unificada.csv:** Archivo resultante del proceso de unificación y limpieza de datos.
 
 ## 4. Metodología
-El desarrollo del proyecto siguió un enfoque secuencial, compuesto por las siguientes etapas:
+El desarrollo del proyecto siguió un enfoque secuencial, dividido en Etapas (“Sprints”):  
 
-1. **Carga y validación de los datos:** Revisión de estructura, duplicados, tipos de datos y consistencia general.  
-2. **Limpieza y transformación:** Unificación de tablas, tratamiento de valores faltantes y estandarización de variables.  
-3. **Análisis exploratorio y estadístico:** Obtención de métricas descriptivas, visualización de distribuciones y relaciones clave.  
-4. **Modelo predictivo:** Entrenamiento de un modelo básico seleccionado según los criterios del curso; evaluación mediante métricas elementales.  
-5. **Conclusiones:** Interpretación de los hallazgos más relevantes y del desempeño del modelo.
+### Etapa 1 — Documentación
+1. Objetivo del proyecto (Tema, Problema y Solución).
+2. Dataset de referencia.
+3. Pasos, Pseudocódigo y Diagrama del programa.
+4. Sugerencias y mejoras aplicadas con Copilot.
+
+### Etapa — Análisis Exploratorio de Datos (EDA) 
+1. Carga y validación de los datos — analizando estructura, duplicados, tipos de datos, consistencia general.  
+2. Limpieza y transformación — unificación de tablas, corrección de categorías, tratamiento (o exclusión) de valores faltantes, estandarización de variables.  
+3. Análisis Exploratorio de Datos (EDA) y análisis estadístico descriptivo — estadísticas básicas, conteos, distribuciones, detección de outliers, visualización.  
+4. Análisis de medios de pago — distribución por medio, frecuencia, comparación entre categorías, insights de negocio.
+
+### Etapa 3 — Modelo Predictivo (Machine Learning)  
+1. Definición del objetivo del modelo: en este caso, predecir un target específico (por ejemplo, el importe total de la venta, o — alternativamente — medio de pago), según lo definido en la etapa de diseño.  
+2. Preparación del dataset para ML: selección de variables (features), codificación de variables categóricas (One-Hot Encoding / dummies), eliminación de columnas irrelevantes, manejo —descartado— de filas con `importe` nulo.  
+3. División en sets de entrenamiento y prueba (train/test).  
+4. Selección de algoritmo(s): en particular, se entrenó un modelo de regresión (por ejemplo, Random Forest Regressor) para predecir el importe de venta.  
+5. Entrenamiento del modelo, predicciones sobre el conjunto de prueba.  
+6. Evaluación mediante métricas: MAE, RMSE, R², entre otras.  
+7. Interpretación de resultados, análisis de error y discusión — posibilidad realista de uso práctico, limitaciones.  
 
 ## 5. Estructura de carpetas
 
