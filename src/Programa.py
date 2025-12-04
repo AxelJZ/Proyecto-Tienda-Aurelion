@@ -603,6 +603,92 @@ def grafico_boxplot_importe_medio_pago(df_maestro):
     plt.show()
 
 
+def ejecutar_modelo_ml(df_maestro):
+    print("\n" + "="*60)
+    print("🤖 MODELO PREDICTIVO: RANDOM FOREST REGRESSOR")
+    print("="*60)
+
+    if df_maestro is None or df_maestro.empty:
+        print("❌ Error: No hay datos cargados. Ejecuta la opción 6 primero.")
+        return
+
+    import pandas as pd
+    from sklearn.model_selection import train_test_split
+    from sklearn.compose import ColumnTransformer
+    from sklearn.preprocessing import OneHotEncoder
+    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+    import matplotlib.pyplot as plt
+
+    # 1) Preparación de X e y
+    cols_modelo = [
+        "cantidad",
+        "precio_unitario",
+        "precio_unitario_producto",
+        "categoria_corregida",
+        "medio_pago",
+        "ciudad",
+        "nombre_producto"
+    ]
+
+    df = df_maestro[df_maestro["importe"] > 0].copy()
+    X = df[cols_modelo]
+    y = df["importe"]
+
+    # 2) Train/Test split
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    # 3) Transformaciones
+    numericas = ["cantidad", "precio_unitario", "precio_unitario_producto"]
+    categoricas = ["categoria_corregida", "medio_pago", "ciudad", "nombre_producto"]
+
+    preprocessor = ColumnTransformer(
+        transformers=[
+            ("num", "passthrough", numericas),
+            ("cat", OneHotEncoder(handle_unknown="ignore"), categoricas)
+        ]
+    )
+
+    X_train_t = preprocessor.fit_transform(X_train)
+    X_test_t = preprocessor.transform(X_test)
+
+    # 4) Modelo
+    rf = RandomForestRegressor(
+        n_estimators=300,
+        random_state=42
+    )
+
+    rf.fit(X_train_t, y_train)
+    y_pred = rf.predict(X_test_t)
+
+    # 5) Métricas
+    mae = mean_absolute_error(y_test, y_pred)
+    rmse = mean_squared_error(y_test, y_pred) ** 0.5
+    r2 = r2_score(y_test, y_pred)
+
+    print("\n📊 MÉTRICAS DEL MODELO")
+    print(f"MAE : {mae:.2f}")
+    print(f"RMSE: {rmse:.2f}")
+    print(f"R²  : {r2:.3f}")
+
+    # 6) Gráfico Pred vs Real
+    plt.figure(figsize=(7, 5))
+    plt.scatter(y_test, y_pred, alpha=0.6)
+    plt.plot([y_test.min(), y_test.max()],
+             [y_test.min(), y_test.max()],
+             color="red", linestyle="--")
+    plt.xlabel("Valores reales")
+    plt.ylabel("Predicciones")
+    plt.title("Predicciones vs Valores Reales – Random Forest")
+    plt.grid(alpha=0.4)
+    plt.tight_layout()
+    plt.show()
+
+    print("\n✅ Modelo ejecutado correctamente.")
+
+
 # =====================================================
 # PROGRAMA PRINCIPAL
 # =====================================================
@@ -633,7 +719,8 @@ def main():
 12. Gráfico: Frecuencia de medios de pago
 13. Gráfico: Distribución de importe
 14. Gráfico: Boxplot de importe por medio de pago
-15. Salir
+15. Ejecutar análisis de Machine Learning (Random Forest)
+16. Salir
         """)
         
         try:
@@ -668,6 +755,8 @@ def main():
             elif opcion == "14":
                 grafico_boxplot_importe_medio_pago(df_maestro)
             elif opcion == "15":
+                ejecutar_modelo_ml(df_maestro)
+            elif opcion == "16":
                 print("\n👋 ¡Hasta luego! Gracias por usar el programa de análisis.")
                 break
             else:

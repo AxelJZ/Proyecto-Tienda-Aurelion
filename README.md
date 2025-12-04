@@ -154,8 +154,8 @@ Esto indica que el modelo explica aproximadamente el 84% de la variabilidad del 
 ```mermaid
 flowchart TD
 
-A[1. Definición del Objetivo del Modelo]
-B[2. Carga y Selección del Dataset<br/>Definir X e y]
+A[1. Objetivo del Modelo]
+B[2. Carga y Selección Dataset<br/>Definir X e y]
 C[3. Preprocesamiento<br/>- Filtrado importe>0<br/>- División num/cat<br/>- OneHot Encoding]
 D[4. División Train/Test]
 E[5. Entrenamiento<br/>Random Forest Regressor]
