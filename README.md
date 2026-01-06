@@ -74,18 +74,15 @@ cd 'c:\(ruta)\PROYECTO-TIENDA-AURELION'
 python .\src\Programa.py
 ```
 
-- Seleccionar la opción `6` para cargar la `tabla_unificada.csv` y ejecutar la documentación (el notebook unificado se ejecutará si está instalado `jupyter`).
-- La opción `1` abrirá el `README.md` del proyecto.
+- Seleccionar la opción `6` para cargar la `tabla_unificada.csv` y ejecutar la documentación (el notebook unificado se ejecutará si está instalado `jupyter`). De esta forma, serán funcionales las opciones 7 a 15 del menú.
 
 ## 7. Dependencias
 
 Instalación rápida (pip):
 
 ```powershell
-pip install pandas numpy matplotlib seaborn scipy openpyxl jupyter ipython
+pip install pandas numpy matplotlib seaborn scipy scikit-learn openpyxl jupyter ipython nbclient nbformat joblib
 ```
-
-Para garantizar la reproducibilidad, se recomienda instalar las dependencias antes de ejecutar el código.
 
 ## 8. Modelo Predictivo (Machine Learning)
 
@@ -121,13 +118,13 @@ Tras filtrar registros sin importe válido, el dataset final quedó con 338 fila
 
 ### 8.3. Preprocesamiento
 
-- Eliminación de filas con importe nulo.
+- Se imputaron los `importe` nulos calculando `cantidad * precio_unitario` cuando correspondía (esto corrigió 5 filas con `importe` faltante).  
 
 - Separación entre columnas numéricas y categóricas.
 
 - Codificación de variables categóricas mediante OneHotEncoder (handle_unknown='ignore').
 
-- Ensamble del procesamiento en un ColumnTransformer.
+- El procesamiento fue ensamblado con `ColumnTransformer` y el `random_state=42` se fijó para reproducibilidad.
 
 - División Train/Test (80% / 20%) con random_state=42.
 
@@ -146,15 +143,16 @@ RandomForestRegressor(
 
 ### 8.5. Resultados y métricas
 
-El modelo logró un rendimiento satisfactorio en el conjunto de prueba:
+El modelo fue evaluado sobre el conjunto de prueba y arrojó las siguientes métricas:
 
 | Métrica  | Resultado   |
 | -------- | ----------- |
-| **MAE**  | ≈ 190 pesos |
-| **RMSE** | ≈ 356 pesos |
-| **R²**   | ≈ 0.993     |
+| **MAE**  | ≈ 203.60 pesos |
+| **RMSE** | ≈ 374.57 pesos |
+| **R²**   | ≈ 0.9918     |
 
-Esto indica que el modelo explica aproximadamente el 84% de la variabilidad del importe.
+**Interpretación:** El R² obtenido (≈ 0.9918) indica que el modelo explica aproximadamente el 99.2% de la variabilidad del importe en este conjunto de datos.  
+> Nota: este R² muy alto es consistente con la naturaleza del problema —el importe está estrechamente relacionado con `cantidad` × `precio_unitario`— y con el tamaño y estructura del dataset (datos sintéticos / educativos). Por lo tanto, el resultado es plausible; sin embargo, se recomienda validar con más datos externos y realizar validación cruzada para asegurar que no existe sobreajuste.
 
 ### 8.6. Conclusiones del modelo
 
@@ -163,6 +161,8 @@ Esto indica que el modelo explica aproximadamente el 84% de la variabilidad del 
 - Las variables categóricas (**categoria_corregida**, **medio_pago**, **ciudad**) aportan información adicional útil.
 
 - El modelo es adecuado como aproximación inicial y cumple plenamente los requisitos del proyecto académico.
+
+> Observación: El R² cercano a 1 se debe a que la variable objetivo (`importe`) está fuertemente influenciada por `cantidad` y `precio_unitario` (relación casi determinística). Esto facilita que modelos como Random Forest expliquen una gran parte de la variabilidad. Con datos más complejos o variables externas (promociones, temporalidad extendida, clientes recurrentes) el comportamiento podría diferir.
 
 ### 8.7. Diagrama visual del flujo del modelo
 
